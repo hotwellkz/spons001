@@ -53,9 +53,9 @@ function App() {
         <div className="absolute bottom-20 right-10 w-1 h-1 bg-cyan-400 rounded-full animate-ping delay-1500"></div>
       </div>
 
-      <div className="max-w-[600px] mx-auto relative z-10">
+      <main className="max-w-[600px] mx-auto relative z-10">
         {/* Заголовок с премиальными эффектами */}
-        <div className="text-center mb-10 relative">
+        <header className="text-center mb-10 relative">
           {/* Декоративные линии */}
           <div className="absolute left-1/2 -translate-x-1/2 top-0 w-32 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
           
@@ -82,10 +82,10 @@ function App() {
             <div className="w-12 h-px bg-gradient-to-r from-pink-500/50 to-transparent"></div>
             <div className="w-2 h-2 bg-pink-500 rounded-full mt-1"></div>
           </div>
-        </div>
+        </header>
 
         {/* Описание с премиальным дизайном */}
-        <div className="relative bg-gradient-to-br from-slate-800/60 via-slate-800/40 to-slate-800/60 backdrop-blur-xl rounded-3xl p-8 mb-8 border border-slate-700/50 shadow-2xl overflow-hidden group">
+        <section className="relative bg-gradient-to-br from-slate-800/60 via-slate-800/40 to-slate-800/60 backdrop-blur-xl rounded-3xl p-8 mb-8 border border-slate-700/50 shadow-2xl overflow-hidden group" aria-label="Описание услуги">
           {/* Декоративный градиент сверху */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-blue-500/50 to-transparent"></div>
           
@@ -102,10 +102,10 @@ function App() {
               {DESCRIPTION_TEXT}
             </p>
           </div>
-        </div>
+        </section>
 
         {/* Кнопки связи с премиальным дизайном */}
-        <div className="space-y-5 mb-8">
+        <section className="space-y-5 mb-8" aria-label="Способы связи">
           {/* Кнопка WhatsApp */}
           <div className="relative group">
             {/* Внешнее свечение */}
@@ -181,10 +181,10 @@ function App() {
               </div>
             </div>
           </div>
-        </div>
+        </section>
 
         {/* Email с премиальным дизайном */}
-        <div className="relative group bg-gradient-to-br from-slate-800/60 via-slate-800/40 to-slate-800/60 backdrop-blur-xl rounded-2xl p-6 mb-8 border border-slate-700/50 shadow-xl overflow-hidden">
+        <section className="relative group bg-gradient-to-br from-slate-800/60 via-slate-800/40 to-slate-800/60 backdrop-blur-xl rounded-2xl p-6 mb-8 border border-slate-700/50 shadow-xl overflow-hidden" aria-label="Email контакт">
           {/* Декоративный градиент */}
           <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-purple-400/50 to-transparent"></div>
           
@@ -209,7 +209,7 @@ function App() {
               <span className="text-sm md:text-base font-semibold">{EMAIL}</span>
             </button>
           </div>
-        </div>
+        </section>
 
         {/* Футер с премиальным дизайном */}
         <footer className="text-center space-y-4 pt-6 relative">
@@ -225,7 +225,7 @@ function App() {
             <span className="w-1 h-1 bg-slate-600 rounded-full"></span>
           </p>
         </footer>
-      </div>
+      </main>
     </div>
   )
 }

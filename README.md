@@ -94,7 +94,55 @@ npm run preview
    - Output Directory: `dist`
 6. Получите публичную ссылку вида `https://your-site-name.vercel.app`
 
+## SEO Оптимизация
+
+Проект полностью оптимизирован для поисковых систем:
+
+### ✅ Реализованные SEO функции:
+
+1. **Мета-теги:**
+   - Title и Description с ключевыми словами
+   - Open Graph для социальных сетей
+   - Twitter Cards
+   - Canonical URL
+   - Geo-теги
+
+2. **Структурированные данные (JSON-LD):**
+   - Organization schema
+   - WebSite schema
+   - Service schema
+   - ContactPoint schema
+
+3. **Техническая оптимизация:**
+   - Семантические HTML теги (header, main, section, footer)
+   - Robots.txt
+   - Sitemap.xml
+   - Правильные заголовки H1-H6
+   - Оптимизированные заголовки HTTP
+
+4. **Производительность:**
+   - Preconnect для внешних ресурсов
+   - DNS-prefetch
+   - Кэширование статических ресурсов
+
+5. **Безопасность:**
+   - Security headers (X-Frame-Options, X-XSS-Protection и др.)
+   - Security.txt файл
+
+### Домен
+
+Проект настроен для домена: **https://contactforads.ru**
+
+Все мета-теги и структурированные данные содержат правильные URL и информацию для этого домена.
+
 ## Использование
 
 После деплоя скопируйте полученную ссылку и вставьте её в настройки YouTube-канала в разделе "Ссылки" / "Для сотрудничества и рекламы".
+
+### Проверка SEO
+
+После деплоя проверьте SEO с помощью:
+- [Google Search Console](https://search.google.com/search-console)
+- [Google Rich Results Test](https://search.google.com/test/rich-results)
+- [PageSpeed Insights](https://pagespeed.web.dev/)
 
