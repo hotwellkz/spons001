@@ -49,18 +49,36 @@ npm run preview
 - `EMAIL` - email для контакта
 - `TELEGRAM` - Telegram для контакта
 
-## Деплой
+## Деплой на Netlify
 
-### Netlify
+Проект уже настроен для деплоя на Netlify. Файл `netlify.toml` содержит все необходимые настройки, включая редиректы для SPA (чтобы страница не пропадала при обновлении).
+
+### Способ 1: Через Git (Рекомендуется)
 
 1. Зарегистрируйтесь на [netlify.com](https://www.netlify.com)
-2. Перейдите в раздел "Sites" → "Add new site" → "Import an existing project"
-3. Подключите ваш Git-репозиторий или загрузите папку `dist` через "Deploy manually"
-4. Если используете Git:
-   - Build command: `npm run build`
-   - Publish directory: `dist`
-5. Нажмите "Deploy site"
-6. Получите публичную ссылку вида `https://your-site-name.netlify.app`
+2. Перейдите в раздел **"Sites"** → **"Add new site"** → **"Import an existing project"**
+3. Выберите **"GitHub"** и авторизуйтесь
+4. Найдите репозиторий `hotwellkz/spons001` и выберите его
+5. Настройки уже указаны в `netlify.toml`, но проверьте:
+   - **Build command:** `npm run build` (уже указано)
+   - **Publish directory:** `dist` (уже указано)
+6. Нажмите **"Deploy site"**
+7. Дождитесь завершения деплоя
+8. Получите публичную ссылку вида `https://your-site-name.netlify.app`
+
+### Способ 2: Ручной деплой
+
+1. Соберите проект: `npm run build`
+2. Зарегистрируйтесь на [netlify.com](https://www.netlify.com)
+3. Перейдите в **"Sites"** → **"Add new site"** → **"Deploy manually"**
+4. Перетащите папку `dist` в область загрузки
+5. Дождитесь завершения деплоя
+
+### Важно
+
+- ✅ Файл `netlify.toml` уже настроен для правильной работы SPA
+- ✅ Редиректы настроены, страница не будет пропадать при обновлении
+- ✅ Все пути автоматически перенаправляются на `index.html`
 
 ### Vercel
 
