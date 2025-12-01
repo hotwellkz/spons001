@@ -1,28 +1,23 @@
 import { useMemo } from 'react'
+import { useLanguage } from './i18n/useLanguage'
+import { LanguageSwitcher } from './components/LanguageSwitcher'
 
 // Константы для легкой настройки
 const WHATSAPP_NUMBER = "77475000217" // без плюса для ссылки
-const WHATSAPP_DISPLAY = "+7 747 500 02 17" // для отображения
-const WHATSAPP_MESSAGE = "Здравствуйте! Хотим обсудить рекламу или спонсорство на ваших YouTube-каналах."
-
 const TELEGRAM_NUMBER = "77475000217" // без плюса для ссылки
-const TELEGRAM_DISPLAY = "+7 747 500 02 17" // для отображения
-const TELEGRAM_MESSAGE = "Здравствуйте! Хотим обсудить рекламу или спонсорство на ваших YouTube-каналах."
-
-const DESCRIPTION_TEXT = "Если вы хотите разместить рекламу или обсудить спонсорство на наших YouTube-каналах, напишите нам в WhatsApp или Telegram. Мы ответим и предложим варианты сотрудничества."
-
 const EMAIL = "hotwell.kz@gmail.com"
-
 const CURRENT_YEAR = new Date().getFullYear()
 
 function App() {
+  const { language, changeLanguage, t, isDetecting } = useLanguage()
+
   const whatsappUrl = useMemo(() => {
-    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(WHATSAPP_MESSAGE)}`
-  }, [])
+    return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(t.whatsappMessage)}`
+  }, [t.whatsappMessage])
 
   const telegramUrl = useMemo(() => {
-    return `https://t.me/+${TELEGRAM_NUMBER}`
-  }, [])
+    return `https://t.me/+${TELEGRAM_NUMBER}?text=${encodeURIComponent(t.telegramMessage)}`
+  }, [t.telegramMessage])
 
   const handleWhatsAppClick = () => {
     window.open(whatsappUrl, '_blank')
@@ -33,11 +28,28 @@ function App() {
   }
 
   const handleEmailClick = () => {
-    window.location.href = `mailto:${EMAIL}?subject=Реклама и спонсорство&body=${encodeURIComponent(TELEGRAM_MESSAGE)}`
+    const subject = language === 'ru' 
+      ? 'Реклама и спонсорство' 
+      : language === 'kk' 
+      ? 'Жарнама және демеушілік'
+      : 'Advertising and Sponsorship'
+    window.location.href = `mailto:${EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(t.telegramMessage)}`
+  }
+
+  if (isDetecting) {
+    return (
+      <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 flex items-center justify-center">
+        <div className="text-center">
+          <div className="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+          <p className="text-slate-300">Loading...</p>
+        </div>
+      </div>
+    )
   }
 
   return (
     <div className="min-h-screen relative overflow-hidden bg-gradient-to-br from-slate-900 via-indigo-950 to-slate-900 py-8 px-4">
+      <LanguageSwitcher currentLanguage={language} onLanguageChange={changeLanguage} />
       {/* Анимированный фон с градиентами */}
       <div className="fixed inset-0 overflow-hidden pointer-events-none">
         <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500/20 rounded-full blur-3xl animate-pulse"></div>
@@ -61,7 +73,7 @@ function App() {
           
           <div className="relative inline-block">
             <h1 className="text-5xl md:text-6xl font-extrabold bg-gradient-to-r from-blue-400 via-purple-400 via-pink-400 to-cyan-400 bg-clip-text text-transparent mb-4 animate-gradient bg-[length:200%_auto]">
-              Реклама и спонсорство
+              {t.title}
             </h1>
             {/* Свечение вокруг заголовка */}
             <div className="absolute inset-0 bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-pink-400/20 blur-2xl -z-10"></div>
@@ -99,7 +111,7 @@ function App() {
               <div className="w-2 h-2 bg-pink-400 rounded-full animate-pulse delay-500"></div>
             </div>
             <p className="text-slate-200 text-base md:text-lg text-center leading-relaxed font-light">
-              {DESCRIPTION_TEXT}
+              {t.description}
             </p>
           </div>
         </section>
@@ -138,7 +150,10 @@ function App() {
               
               <div className="mt-5 text-center">
                 <p className="text-xs text-slate-400">
-                  Номер: <span className="text-slate-300 font-semibold">{WHATSAPP_DISPLAY}</span>
+                  {language === 'ru' ? 'Номер:' : language === 'kk' ? 'Нөмір:' : 'Number:'} <span className="text-slate-300 font-semibold">{t.whatsappNumber}</span>
+                </p>
+                <p className="text-xs text-slate-500 mt-2">
+                  {t.whatsappHint}
                 </p>
               </div>
             </div>
@@ -170,13 +185,16 @@ function App() {
                   <svg className="w-7 h-7 drop-shadow-lg" fill="currentColor" viewBox="0 0 24 24">
                     <path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.223s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/>
                   </svg>
-                  <span className="drop-shadow-lg">Написать в Telegram</span>
+                  <span className="drop-shadow-lg">{t.telegramButton}</span>
                 </span>
               </button>
               
               <div className="mt-5 text-center">
                 <p className="text-xs text-slate-400">
-                  Номер: <span className="text-slate-300 font-semibold">{TELEGRAM_DISPLAY}</span>
+                  {language === 'ru' ? 'Номер:' : language === 'kk' ? 'Нөмір:' : 'Number:'} <span className="text-slate-300 font-semibold">{t.telegramNumber}</span>
+                </p>
+                <p className="text-xs text-slate-500 mt-2">
+                  {t.telegramHint}
                 </p>
               </div>
             </div>
@@ -194,7 +212,7 @@ function App() {
           <div className="relative">
             <p className="text-xs text-slate-400 text-center mb-4 font-semibold uppercase tracking-widest flex items-center justify-center gap-2">
               <div className="w-1 h-1 bg-purple-400 rounded-full"></div>
-              Email
+              {t.emailLabel}
               <div className="w-1 h-1 bg-purple-400 rounded-full"></div>
             </p>
             <button
@@ -206,8 +224,11 @@ function App() {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                 </svg>
               </div>
-              <span className="text-sm md:text-base font-semibold">{EMAIL}</span>
+              <span className="text-sm md:text-base font-semibold">{t.email}</span>
             </button>
+            <p className="text-xs text-slate-500 text-center mt-3">
+              {t.emailHint}
+            </p>
           </div>
         </section>
 
@@ -217,11 +238,11 @@ function App() {
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-24 h-px bg-gradient-to-r from-transparent via-slate-600 to-transparent"></div>
           
           <p className="text-sm text-slate-400 font-light">
-            Страница только для рекламодателей и спонсоров.
+            {t.footerText}
           </p>
           <p className="text-xs text-slate-500 flex items-center justify-center gap-2">
             <span className="w-1 h-1 bg-slate-600 rounded-full"></span>
-            <span>© {CURRENT_YEAR} Контакты для рекламы</span>
+            <span>© {CURRENT_YEAR} {t.footerCopyright}</span>
             <span className="w-1 h-1 bg-slate-600 rounded-full"></span>
           </p>
         </footer>
